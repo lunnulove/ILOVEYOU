@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>¿Me perdonas?</title>
+  <!-- SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+      background-color: #fbeffb;
+    }
+    h1 {
+      font-size: 2em;
+      color: #a52a2a;
+    }
+    #button-container {
+      margin-top: 30px;
+    }
+    button {
+      font-size: 1.5em;
+      padding: 10px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .yes-button {
+      background-color: #7ed6df;
+      color: #000;
+    }
+    .no-button {
+      background-color: #ff6b6b;
+      color: white;
+      position: relative;
+    }
+    .message {
+      margin-top: 40px;
+      font-size: 1.3em;
+      color: #2d3436;
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Me perdonas, hermanita?</h1>
+  <div id="button-container">
+    <button class="yes-button" id="yesButton" onclick="mostrarMensaje()">Sí 🥺</button>
+    <button class="no-button" id="noButton" onclick="evitarNo()">No 😠</button>
+  </div>
+  <div class="message" id="mensaje"></div>
+
+  <script>
+    let intentosNo = 0;
+    let yesButtonSize = 1; // escala inicial
+
+    function mostrarMensaje() {
+      Swal.fire({
+        title: "🥹 Gracias por perdonarme",
+        html: "LA SORPRESA ES. <br><strong>¡VAMOS A IR A VER LA PELICULA DE STICH!</strong> 💖",
+        width: 600,
+        padding: "3em",
+        color: "#716add",
+        background: "#fff url('https://sweetalert2.github.io/images/trees.png')",
+        backdrop: `
+          rgba(0,0,123,0.4)
+          url("https://sweetalert2.github.io/images/nyan-cat.gif")
+          left top
+          no-repeat
+        `,
+        confirmButtonText: "Un abrazo 🫂"
+      });
+    }
+
+    function evitarNo() {
+      intentosNo++;
+      const noBtn = document.getElementById('noButton');
+      const yesBtn = document.getElementById('yesButton');
+
+      // Aumentar el tamaño del botón Sí
+      yesButtonSize += 0.2; // cada vez un 20% más grande
+      yesBtn.style.transform = `scale(${yesButtonSize})`;
+
+      if (intentosNo < 3) {
+        Swal.fire({
+          title: '¿Segura?',
+          text: 'No me rompas el corazoncito 💔 piensa bien hay una sorpresa:)',
+          icon: 'warning',
+          confirmButtonText: 'Mmm... ok'
+        });
+      } else if (intentosNo < 5) {
+        Swal.fire({
+          title: 'Piensa bien 🥺',
+          text: 'Soy tu herman@, y te quiero mucho SEGURA NO ME PERDONAS 😢',
+          icon: 'question',
+          confirmButtonText: 'Está bien...'
+        });
+      } else {
+        Swal.fire({
+          title: '¡No puedes decir que no! 😜',
+          text: 'El botón se escapa jejeje YA CANSATE PON QUE SI',
+          icon: 'info',
+          confirmButtonText: 'Ok'
+        });
+        moverBoton(noBtn);
+      }
+    }
+
+    function moverBoton(btn) {
+      const x = Math.floor(Math.random() * (window.innerWidth - 100));
+      const y = Math.floor(Math.random() * (window.innerHeight - 150));
+      btn.style.position = "absolute";
+      btn.style.left = x + "px";
+      btn.style.top = y + "px";
+    }
+  </script>
+</body>
+</html>
